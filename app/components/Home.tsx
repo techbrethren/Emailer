@@ -51,6 +51,7 @@ function saveHtml(html: string) {
       }
       return new Error("Profile doesn't exist");
     });
+    console.log(userChosenPath);
 }
 
 function genHtml(html: string): void {
@@ -70,10 +71,10 @@ function getHtml(): void {
     'utf8'
   );
   readStream
-    .on('data', function (chunk) {
+    .on('data', (chunk) => {
       data += chunk;
     })
-    .on('end', function () {
+    .on('end', () => {
       genHtml(data);
     });
 }
