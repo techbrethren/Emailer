@@ -64,7 +64,8 @@
             "templates/"
         ],
         "dmg": {
-            "contents": [{
+            "contents": [
+                {
                     "x": 130,
                     "y": 220
                 },
@@ -110,7 +111,8 @@
         "email": "electronreactboilerplate@gmail.com",
         "url": "https://electron-react-boilerplate.js.org"
     },
-    "contributors": [{
+    "contributors": [
+        {
             "name": "Vikram Rangaraj",
             "email": "vikr01@icloud.com",
             "url": "https://github.com/vikr01"
@@ -214,6 +216,7 @@
         "browserslist-config-erb": "^0.0.1",
         "chalk": "^4.1.0",
         "concurrently": "^5.3.0",
+        "copy-webpack-plugin": "^6.1.1",
         "core-js": "^3.6.5",
         "cross-env": "^7.0.2",
         "css-loader": "^3.6.0",
@@ -302,17 +305,19 @@
     },
     "browserslist": [],
     "prettier": {
-        "overrides": [{
-            "files": [
-                ".prettierrc",
-                ".babelrc",
-                ".eslintrc",
-                ".stylelintrc"
-            ],
-            "options": {
-                "parser": "json"
+        "overrides": [
+            {
+                "files": [
+                    ".prettierrc",
+                    ".babelrc",
+                    ".eslintrc",
+                    ".stylelintrc"
+                ],
+                "options": {
+                    "parser": "json"
+                }
             }
-        }],
+        ],
         "singleQuote": true
     },
     "stylelint": {

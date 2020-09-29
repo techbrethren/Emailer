@@ -4,6 +4,7 @@
 
 import path from 'path';
 import webpack from 'webpack';
+import CopyPlugin from 'copy-webpack-plugin';
 import { dependencies as externals } from '../app/package.json';
 
 export default {
@@ -30,6 +31,10 @@ export default {
     libraryTarget: 'commonjs2',
   },
 
+  node: {
+    __dirname: false,
+  },
+
   /**
    * Determine the array of extensions that should be used to resolve modules.
    */
@@ -42,7 +47,9 @@ export default {
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production',
     }),
-
+    new CopyPlugin({
+      patterns: [{ from: 'app/templates', to: 'templates' }],
+    }),
     new webpack.NamedModulesPlugin(),
   ],
 };

@@ -86,7 +86,6 @@ function getHtml(mixin: string): void {
 
 function previewHtml(mixin: string): string {
   let data = '';
-
   const readStream = fs.createReadStream(
     `${__dirname}/templates/template.html`,
     'utf8'
@@ -126,13 +125,20 @@ export default function Home() {
 
   const [html, setHtml] = React.useState({ value: '' });
   const [inputData, setInput] = React.useState({});
-
+  console.log("PATH HERE " + fs.readdir(`${__dirname}`, function (err, files) {
+    if (err) {
+      return console.log('Unable to scan ' + err);
+    }
+    files.forEach(function (file) {
+      console.log(file);
+    })
+  }));
   const htmlBuff = fs.readFileSync(
     `${__dirname}/templates/template.html`,
     'utf8'
   );
 
-  function prevHtml(inData): string {
+  function prevHtml(inData: any): string {
     const names = {};
     // eslint-disable-next-line no-plusplus
     // const inData = inputData.value;
