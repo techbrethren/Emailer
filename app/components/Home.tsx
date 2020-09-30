@@ -3,7 +3,8 @@ import mustache from 'mustache';
 import { Button, Container, TextField } from '@material-ui/core';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import ReplayIcon from '@material-ui/icons/Replay';
+import SaveIcon from '@material-ui/icons/Save';
 import Grid, { GridSpacing } from '@material-ui/core/Grid';
 import { Link } from 'react-router-dom';
 import fs from 'fs';
@@ -11,6 +12,7 @@ import path from 'path';
 import routes from '../constants/routes.json';
 import styles from './Home.css';
 import Preview from './Preview';
+import UserInputs from './UserInputs';
 
 const { app, dialog } = require('electron').remote;
 
@@ -124,15 +126,8 @@ export default function Home() {
   let inputRef: any;
 
   const [html, setHtml] = React.useState({ value: '' });
-  const [inputData, setInput] = React.useState({});
-  console.log("PATH HERE " + fs.readdir(`${__dirname}`, function (err, files) {
-    if (err) {
-      return console.log('Unable to scan ' + err);
-    }
-    files.forEach(function (file) {
-      console.log(file);
-    })
-  }));
+  const [inputData, setInput] = React.useState({ value: [] });
+
   const htmlBuff = fs.readFileSync(
     `${__dirname}/templates/template.html`,
     'utf8'
@@ -156,7 +151,7 @@ export default function Home() {
     let tempInput: any[] = [];
     console.log(inputData.value);
     if (typeof inputData.value !== 'undefined') {
-      console.log("PLEASE WORKING " + inputData.value);
+      console.log(`PLEASE WORKING ${inputData.value}`);
       tempInput = inputData.value.filter((i: any) => i.name !== e.target.id);
     }
     const addInput = {
@@ -177,6 +172,56 @@ export default function Home() {
     });
   };
 
+  /* const getCurrentValue = (e: any) => {
+    console.log("CALLING FUNCTION");
+    console.log(inputData.value.length + " + " + e.target);
+    if (inputData.value.length) {
+      const obj = inputData.value.find(
+        (element) => element.name === e.target.id
+      );
+      console.log("SEND ME A COOKIE " + obj);
+      if (typeof obj !== 'undefined') {
+        return obj.value;
+      }
+    }
+    return '';
+  }; */
+
+  const inputFields = [
+    {
+      label: 'Heading',
+      id: 'heading',
+    },
+    {
+      label: 'Subby',
+      id: 'sub',
+    },
+    {
+      label: 'Body',
+      id: 'body',
+    },
+    {
+      label: 'Position',
+      id: 'position',
+    },
+    {
+      label: 'First Companion',
+      id: 'name1',
+    },
+    {
+      label: 'Second Companion',
+      id: 'name2',
+    },
+    {
+      label: 'First Number',
+      id: 'number1',
+    },
+    {
+      label: 'Second Number',
+      id: 'number2',
+    },
+  ];
+
   return (
     <>
       <div className={styles.container} data-tid="container">
@@ -187,46 +232,29 @@ export default function Home() {
             <Grid container spacing={3}>
               <Grid item xs={6}>
                 <Paper className={classes.paper}>
-                  <TextField
-                    inputRef={(ref) => {
-                      inputRef = ref;
-                    }}
-                    id="heading"
-                    label="Heading"
-                    variant="outlined"
-                    onChange={handleInput}
-                    // value={html.value}
-                  />
-                  <TextField
-                    inputRef={(ref) => {
-                      inputRef = ref;
-                    }}
-                    id="sub"
-                    label="Subtitle"
-                    variant="outlined"
-                    onChange={handleInput}
-                    // value={html.value}
-                  />
-                  <TextField
-                    inputRef={(ref) => {
-                      inputRef = ref;
-                    }}
-                    id="body"
-                    label="Body"
-                    variant="outlined"
-                    onChange={handleInput}
-                    // value={html.value}
-                  />
+                  <UserInputs data={inputFields} handleInput={handleInput} />
                   <br />
                   <Button
                     variant="contained"
                     color="primary"
+                    startIcon={<SaveIcon />}
                     onClick={() => {
                       console.log(inputRef.value);
                       saveHtml(prevHtml(inputData.value)); // getHtml(inputData.value);
                     }}
                   >
                     Save Template
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<ReplayIcon />}
+                    onClick={() => {
+                      console.log('Resetting Values');
+                       // getHtml(inputData.value);
+                    }}
+                  >
+                    Reset
                   </Button>
                 </Paper>
               </Grid>
