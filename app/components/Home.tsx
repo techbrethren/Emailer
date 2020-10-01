@@ -1,15 +1,14 @@
 import React from 'react';
 import mustache from 'mustache';
-import { Button, Container, TextField } from '@material-ui/core';
+import { Button, Container, Grid } from '@material-ui/core';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import ReplayIcon from '@material-ui/icons/Replay';
 import SaveIcon from '@material-ui/icons/Save';
-import Grid, { GridSpacing } from '@material-ui/core/Grid';
-import { Link } from 'react-router-dom';
+import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import fs from 'fs';
 import path from 'path';
-import routes from '../constants/routes.json';
+import Picker from './Picker';
 import styles from './Home.css';
 import Preview from './Preview';
 import UserInputs from './UserInputs';
@@ -127,6 +126,7 @@ export default function Home() {
 
   const [html, setHtml] = React.useState({ value: '' });
   const [inputData, setInput] = React.useState({ value: [] });
+  const [colorData, setColor] = React.useState({ value: [] });
 
   const htmlBuff = fs.readFileSync(
     `${__dirname}/templates/template.html`,
@@ -172,20 +172,30 @@ export default function Home() {
     });
   };
 
-  /* const getCurrentValue = (e: any) => {
-    console.log("CALLING FUNCTION");
-    console.log(inputData.value.length + " + " + e.target);
-    if (inputData.value.length) {
-      const obj = inputData.value.find(
-        (element) => element.name === e.target.id
-      );
-      console.log("SEND ME A COOKIE " + obj);
-      if (typeof obj !== 'undefined') {
-        return obj.value;
-      }
+  /* const changeColors = (e: any) => {
+    console.log(e);
+    let temp: any[] = [];
+    if (typeof colorData.value !== 'undefined') {
+      console.log(`PLEASE WORKING ${inputData.value}`);
+      tempInput = inputData.value.filter((i: any) => i.name !== e.target.id);
     }
-    return '';
-  }; */
+    const addInput = {
+      name: e.target.id,
+      value: e.target.value,
+    };
+    tempInput.push(addInput);
+    console.log(tempInput);
+    setInput({
+      ...inputData,
+      value: tempInput,
+    });
+    console.log(inputData);
+    e.preventDefault();
+    setHtml({
+      ...html,
+      value: prevHtml(tempInput),
+    });
+  } */
 
   const inputFields = [
     {
@@ -193,7 +203,7 @@ export default function Home() {
       id: 'heading',
     },
     {
-      label: 'Subby',
+      label: 'Subtitle',
       id: 'sub',
     },
     {
@@ -209,12 +219,12 @@ export default function Home() {
       id: 'name1',
     },
     {
-      label: 'Second Companion',
-      id: 'name2',
-    },
-    {
       label: 'First Number',
       id: 'number1',
+    },
+    {
+      label: 'Second Companion',
+      id: 'name2',
     },
     {
       label: 'Second Number',
@@ -232,30 +242,50 @@ export default function Home() {
             <Grid container spacing={3}>
               <Grid item xs={6}>
                 <Paper className={classes.paper}>
-                  <UserInputs data={inputFields} handleInput={handleInput} />
-                  <br />
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    startIcon={<SaveIcon />}
-                    onClick={() => {
-                      console.log(inputRef.value);
-                      saveHtml(prevHtml(inputData.value)); // getHtml(inputData.value);
-                    }}
-                  >
-                    Save Template
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    startIcon={<ReplayIcon />}
-                    onClick={() => {
-                      console.log('Resetting Values');
-                       // getHtml(inputData.value);
-                    }}
-                  >
-                    Reset
-                  </Button>
+                  <Grid container spacing={3}>
+                    <UserInputs data={inputFields} handleInput={handleInput} />
+                    <br />
+                    <Grid item xs={4}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        startIcon={<SaveIcon />}
+                        onClick={() => {
+                          console.log(inputRef.value);
+                          saveHtml(prevHtml(inputData.value)); // getHtml(inputData.value);
+                        }}
+                      >
+                        Save
+                      </Button>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        startIcon={<ReplayIcon />}
+                        onClick={() => {
+                          console.log('Resetting Values');
+                          // getHtml(inputData.value);
+                        }}
+                      >
+                        Reset
+                      </Button>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        startIcon={<SendRoundedIcon />}
+                        onClick={() => {
+                          console.log('Resetting Values');
+                          // getHtml(inputData.value);
+                        }}
+                      >
+                        Send
+                      </Button>
+                    </Grid>
+                  </Grid>
+                  <Picker />
                 </Paper>
               </Grid>
               <Grid item xs={6}>
