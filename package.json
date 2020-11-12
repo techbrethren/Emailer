@@ -2,7 +2,18 @@
   "name": "emailer",
   "version": "0.1.0",
   "private": true,
+  "description": "An electron app to generate pretty emails and send them.",
+  "author": {
+    "name": "Elder Tessem",
+    "email": "benjamin.tessem@missionary.org"
+  },
+  "build": {
+    "appId": "org.techbrethren.emailer"
+  },
+  "main": "./public/electron.js",
+  "homepage": "./",
   "dependencies": {
+    "@fluentui/react": "^7.150.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -10,17 +21,29 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "@uifabric/azure-themes": "^7.5.41",
+    "@uifabric/react-cards": "^0.114.10",
+    "add": "^2.0.6",
+    "cross-env": "^7.0.2",
+    "electron-is-dev": "^1.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.0",
+    "rescripts": "^0.0.1-security",
     "typescript": "^4.0.3",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+    "yarn": "^1.22.10"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject",
+    "electron-build": "electron-builder",
+    "release": "yarn react-build && electron-builder --publish=always",
+    "build": "yarn react-build && yarn electron-build",
+    "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
+    "dev": "yarn start"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +62,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "electron": "^10.1.5",
+    "electron-builder": "^22.9.1",
+    "wait-on": "^5.2.0"
   }
 }
