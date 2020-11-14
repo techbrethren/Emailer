@@ -12,6 +12,9 @@ function createWindow() {
       : `file://${path.join(__dirname, "../build/index.html")}`
   );
   mainWindow.on("closed", () => (mainWindow = null));
+  if (isDev) {
+    mainWindow.webContents.openDevTools({ mode: "detach" });
+  }
 }
 app.on("ready", createWindow);
 app.on("window-all-closed", () => {
@@ -19,8 +22,12 @@ app.on("window-all-closed", () => {
     app.quit();
   }
 });
+
 app.on("activate", () => {
-  if (mainWindow === null) {
+  /*if (mainWindow === null) {
+    createWindow();
+  }*/
+  if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
 });
