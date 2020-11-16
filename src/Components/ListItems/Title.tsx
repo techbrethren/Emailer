@@ -20,10 +20,12 @@ interface ListProps {
   index: number;
   label: string;
   listType: string;
+  locationType: string;
+  applyInput(index: number, value: string, listType: string): any;
 }
 
 export default function Title(props: ListProps) {
-  const { removeItem, index, label, listType } = props;
+  const { removeItem, index, label, listType, locationType } = props;
 
   function getAvatar() {
     switch (listType) {
@@ -42,13 +44,27 @@ export default function Title(props: ListProps) {
     }
   }
 
+  const [value, setValue] = useState<string>("");
+  const handleOnChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    console.log(event.target.value);
+    props.applyInput(props.index, event.target.value, props.listType);
+    setValue(event.target.value);
+  };
+
   return (
     <div className="TitleList">
       <ListItem>
         <ListItemAvatar>
           <Avatar>{getAvatar()}</Avatar>
         </ListItemAvatar>
-        <TextField id="outlined-basic" label={label} variant="outlined" />
+        <TextField
+          id="outlined-basic"
+          label={label}
+          variant="outlined"
+          onChange={handleOnChange}
+        />
         <ListItemSecondaryAction>
           <IconButton
             edge="end"
