@@ -18,10 +18,15 @@ import {
 import draftToHtml from "draftjs-to-html";
 import { convertToRaw, EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
-import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
+import SubtitlesIcon from "@material-ui/icons/Subtitles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+
+// import ColorPic from "../Toolbar/ColorPicker"
+
+import bold from "../../assets/icons/bold.svg";
+import code from "../../assets/icons/code.svg";
 
 interface ListProps {
   removeItem(index: number): any;
@@ -41,6 +46,7 @@ export default function RichText(props: ListProps) {
     locationType,
     applyInput,
   } = props;
+  
   const [value, setValue] = useState<string>("");
   const [editorState, setEditorState] = useState<EditorState>(
     EditorState.createEmpty()
@@ -55,79 +61,100 @@ export default function RichText(props: ListProps) {
     applyInput(index, html, listType);
   }, [editorState]);
 
-  const theme = useTheme();
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       root: {
         backgroundColor: theme.palette.background.default,
+        border: theme.palette.divider,
+        //background: theme.palette.background.default,
+        '& .rdw-dropdown-optionwrapper': {
+          //background: theme.palette.background.default,
+          //backgroundColor: theme.palette.background.default
+          backgroundColor: theme.palette.background.paper,
+          border: theme.palette.divider
+        },
+        '& .rdw-option-wrapper': {
+          //background: theme.palette.background.default,
+          //backgroundColor: theme.palette.background.default
+          backgroundColor: theme.palette.background.paper,
+          border: theme.palette.action.selected
+        },
+        '& .rdw-option-active': {
+          //background: theme.palette.background.default,
+          //backgroundColor: theme.palette.background.default
+          backgroundColor: theme.palette.action.selected,
+          "box-shadow": `1px 1px 0px ${theme.palette.action.selected} inset`,
+          border: theme.palette.action.selected
+        },
+        '& .rdw-option-wrapper:hover, .rdw-dropdown-wrapper:hover': {
+          "box-shadow": `1px 1px 0px ${theme.palette.action.hover} inset`,
+        },
+        '& .rdw-dropdown-wrapper:active': {
+          "box-shadow": `1px 1px 0px ${theme.palette.action.selected} inset`,
+        },
+        '& .rdw-dropdown-wrapper': {
+          // background: theme.palette.background.default,
+          backgroundColor: theme.palette.background.paper,
+          border: theme.palette.divider
+        },
+        '& .rdw-dropdownoption-active': {
+          // background: theme.palette.background.default,
+          backgroundColor: theme.palette.action.selected
+        },
+        '& .rdw-dropdownoption-highlighted': {
+          //background: theme.palette.action.hover,
+          backgroundColor: theme.palette.action.hover
+        },
+        '& .rdw-colorpicker-modal, .rdw-link-modal, .rdw-emoji-modal, .rdw-embedded-modal, .rdw-image-modal': {
+          backgroundColor: theme.palette.background.paper,
+          border: theme.palette.divider
+        },
+        '& .rdw-colorpicker-cube': {
+          border: theme.palette.divider
+        }
+        
       },
+      toolbar: {
+        backgroundColor: theme.palette.background.default,
+        background: theme.palette.background.default,
+        border: theme.palette.divider
+      },
+      editor: {
+        backgroundColor: theme.palette.background.default,
+        background: theme.palette.background.default,
+        border: theme.palette.divider,
+        padding: theme.spacing(2),
+      }
     })
   );
   const classes = useStyles();
-
-  const helpers = {
-    options: [
-      "blockType",
-      "fontSize",
-      "fontFamily",
-      "list",
-      "textAlign",
-      "colorPicker",
-      "link",
-      "embedded",
-      "emoji",
-      "image",
-      "remove",
-    ],
-    blockType: {
-      className: classes.root,
-    },
-    fontSize: {
-      className: classes.root,
-    },
-    fontFamily: {
-      className: classes.root,
-    },
-    list: {
-      className: classes.root,
-    },
-    textAlign: {
-      className: classes.root,
-    },
-    colorPicker: {
-      className: classes.root,
-    },
-    link: {
-      className: classes.root,
-    },
-    emoji: {
-      className: classes.root,
-    },
-    embedded: {
-      className: classes.root,
-    },
-    image: {
-      className: classes.root,
-    },
-    remove: { className: classes.root },
-  };
-
-  // wrapperStyle={ backgroundColor: theme.palette.background }
+  
   return (
     <div className="ChartList">
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <AddPhotoAlternateIcon />
+            <SubtitlesIcon />
           </Avatar>
         </ListItemAvatar>
         <Editor
           wrapperClassName={classes.root}
-          editorClassName={classes.root}
-          toolbarClassName={classes.root}
+          editorClassName={classes.editor}
+          toolbarClassName={classes.toolbar}
           editorState={editorState}
           onEditorStateChange={handleChange}
-          toolbar={helpers}
+          placeholder="Start typing..."
+          toolbar={{
+            inline: {
+              bold: {
+                icon: bold
+              },
+              monospace: {
+                icon: code,
+              },
+            },
+            // colorPicker: { component: ColorPic }
+          }}
         />
         <ListItemSecondaryAction>
           <IconButton

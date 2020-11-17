@@ -19,10 +19,10 @@ function App() {
       <header className="App-header">
         <Typography variant="h2">Emailer</Typography>
         <Grid className="cardHolder" container justify="center" spacing={2}>
-          <Grid key="Input" item>
+          <Grid style={{  flex: 1  }} key="Input" item>
             <Input setContainers={setAllContainers} />
           </Grid>
-          <Grid key="Preview" item>
+          <Grid style={{  flex: 1  }} key="Preview" item>
             <Preview containers={containers} />
           </Grid>
         </Grid>

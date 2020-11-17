@@ -273,9 +273,9 @@ export default function AddMenu(props: AddMenuProps) {
           <ListItemText primary="Inline Image" />
         </StyledMenuItem>
 
-          <StyledMenuItem onClick={handleMenuClick} id="richtext">
+        <StyledMenuItem onClick={handleMenuClick} id="richtext">
           <ListItemIcon>
-            <AddPhotoAlternateIcon fontSize="small" />
+            <SubtitlesIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary="Rich Text" />
         </StyledMenuItem>
