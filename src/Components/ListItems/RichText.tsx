@@ -1,16 +1,12 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  List,
   ListItem,
   Avatar,
   ListItemAvatar,
   ListItemSecondaryAction,
   IconButton,
-  Button,
-  TextField,
 } from "@material-ui/core";
 import {
-  useTheme,
   makeStyles,
   Theme,
   createStyles,
@@ -20,7 +16,7 @@ import { convertToRaw, EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import SubtitlesIcon from "@material-ui/icons/Subtitles";
 import DeleteIcon from "@material-ui/icons/Delete";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
+// import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 // import ColorPic from "../Toolbar/ColorPicker"
@@ -41,13 +37,9 @@ export default function RichText(props: ListProps) {
   const {
     removeItem,
     index,
-    label,
     listType,
-    locationType,
     applyInput,
   } = props;
-  
-  const [value, setValue] = useState<string>("");
   const [editorState, setEditorState] = useState<EditorState>(
     EditorState.createEmpty()
   );

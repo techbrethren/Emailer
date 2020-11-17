@@ -2,7 +2,6 @@ import React from "react";
 import SanitizedHTML from "sanitize-html";
 import template from "../assets/template.html";
 import nunjucks from "nunjucks";
-import GoogleChartsNode from "google-charts-node";
 
 import { Card, Divider, Typography } from "@material-ui/core";
 import "./Cards.css";

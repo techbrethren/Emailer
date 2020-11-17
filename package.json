@@ -65,7 +65,6 @@
     "electron-devtools-installer": "^3.1.1",
     "electron-is-dev": "^1.2.0",
     "fontsource-roboto": "^3.0.3",
-    "google-charts-node": "^1.0.3",
     "mime-types": "^2.1.27",
     "nunjucks": "^3.2.2",
     "react": "^17.0.1",
