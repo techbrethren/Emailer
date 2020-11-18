@@ -19,6 +19,7 @@ log.info("App starting...");
 let mainWindow;
 function createWindow() {
   mainWindow = new BrowserWindow({
+    backgroundColor: "#282c34",
     width: 900,
     height: 680,
     webPreferences: {
@@ -36,6 +37,10 @@ function createWindow() {
     mainWindow.webContents.openDevTools({ mode: "detach" });
   }
   mainWindow.once("ready-to-show", () => {
+    if (process.platform === "darwin") {
+      autoUpdater.autoDownload = false;
+    }
+    autoUpdater.autoDownload = false;
     autoUpdater.checkForUpdatesAndNotify();
   });
 }
@@ -66,8 +71,8 @@ app.on("activate", () => {
   }
 });
 
-autoUpdater.on("update-available", () => {
-  mainWindow.webContents.send("update_available");
+autoUpdater.on("update-available", (info) => {
+  mainWindow.webContents.send("update_available", info);
 });
 
 autoUpdater.on("update-downloaded", () => {

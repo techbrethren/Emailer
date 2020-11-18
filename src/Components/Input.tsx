@@ -33,6 +33,7 @@ export default function Preview(props: InputProps) {
       header: header,
       body: body,
       footer: footer,
+      easter: getEaster(),
     };
     if (setContainers) {
       console.log(`Container ${JSON.stringify(containers)}`);
@@ -40,6 +41,17 @@ export default function Preview(props: InputProps) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [header, body, footer]);
+
+  function getEaster(): string {
+    const options = [
+      "Made with 🖍 by the Tech Brethren",
+      "65% of the time, it works 100% of the time",
+      "2 Nephi 22:2",
+      "D&amp;C 66:6",
+      "1 Nephi 2:15",
+    ];
+    return options[Math.floor(Math.random() * options.length)];
+  }
 
   return (
     <Card className="Cards">

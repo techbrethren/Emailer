@@ -10,6 +10,9 @@
   "build": {
     "appId": "org.techbrethren.emailer",
     "copyright": "Copyright © 2020 Elder Tessem, Tech Brethren",
+    "files": [
+      "public/**/*"
+    ],
     "dmg": {
       "contents": [
         {
@@ -76,7 +79,7 @@
     "react-test": "rescripts test",
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
-    "release": "yarn rescripts & electron-builder --publish=always",
+    "release": "yarn react-build & electron-builder --publish=always",
     "build": "yarn react-build & yarn electron-build",
     "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
     "dev": "yarn start"

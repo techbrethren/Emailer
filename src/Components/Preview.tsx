@@ -14,6 +14,7 @@ export interface Containers {
   header?: Array<TemplateTypes>;
   body?: Array<TemplateTypes>;
   footer?: Array<TemplateTypes>;
+  easter?: string;
 }
 
 export interface TemplateTypes {
@@ -50,11 +51,9 @@ export default function Preview(props: PreviewProps) {
   return (
     <Card className="Cards">
       <CardHeader
-     
-          title="Preview"
-   
-            subheader="(Select all below and copy, and paste in Gmail)"
-      
+        title="Preview"
+        subheader="
+            Select all below, copy, and paste in Gmail"
       />
       <Divider />
       <div dangerouslySetInnerHTML={{ __html: cleanedHtml }} />
