@@ -3,7 +3,7 @@ import SanitizedHTML from "sanitize-html";
 import template from "../assets/template.html";
 import nunjucks from "nunjucks";
 
-import { Card, Divider, Typography } from "@material-ui/core";
+import { Card, CardHeader, Divider, Typography } from "@material-ui/core";
 import "./Cards.css";
 
 export interface PreviewProps {
@@ -46,10 +46,16 @@ export default function Preview(props: PreviewProps) {
       img: ["data", "https"],
     },
   });
-
+  //<Typography variant="h4">Preview</Typography>
   return (
     <Card className="Cards">
-      <Typography variant="h4">Preview</Typography>
+      <CardHeader
+     
+          title="Preview"
+   
+            subheader="(Select all below and copy, and paste in Gmail)"
+      
+      />
       <Divider />
       <div dangerouslySetInnerHTML={{ __html: cleanedHtml }} />
     </Card>

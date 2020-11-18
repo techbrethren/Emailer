@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Card, Divider, Typography, CardContent } from "@material-ui/core";
+import {
+  Card,
+  CardHeader,
+  Divider,
+  Typography,
+  CardContent,
+} from "@material-ui/core";
 import AddMenu from "./AddMenu";
 import { Containers, TemplateTypes } from "./Preview";
 import "./Cards.css";
@@ -26,19 +32,23 @@ export default function Preview(props: InputProps) {
     let containers: Containers = {
       header: header,
       body: body,
-      footer: footer
-    }
+      footer: footer,
+    };
     if (setContainers) {
-      console.log(`Container ${JSON.stringify(containers)}`)
-      setContainers(containers)
+      console.log(`Container ${JSON.stringify(containers)}`);
+      setContainers(containers);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[header, body, footer])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [header, body, footer]);
 
   return (
     <Card className="Cards">
       <CardContent>
-        <Typography variant="h4">Input</Typography>
+        {/*<Typography variant="h4">Input</Typography>*/}
+        <CardHeader
+          title="Input"
+          subheader="Enter Content Here"
+        />
         <Divider />
         <AddMenu
           title="Header"
@@ -46,11 +56,7 @@ export default function Preview(props: InputProps) {
           handleInput={handleHeaders}
         />
         <Divider />
-        <AddMenu
-          title="Body"
-          locationType="body"
-          handleInput={handleBody}
-        />
+        <AddMenu title="Body" locationType="body" handleInput={handleBody} />
         <Divider />
         <AddMenu
           title="Footer"
