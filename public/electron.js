@@ -40,7 +40,6 @@ function createWindow() {
     if (process.platform === "darwin") {
       autoUpdater.autoDownload = false;
     }
-    autoUpdater.autoDownload = false;
     autoUpdater.checkForUpdatesAndNotify();
   });
 }
