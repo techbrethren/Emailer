@@ -1,6 +1,6 @@
 {
   "name": "emailer",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "private": true,
   "description": "An electron app to generate pretty emails and send them.",
   "author": {
