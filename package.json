@@ -10,9 +10,13 @@
   "build": {
     "appId": "org.techbrethren.emailer",
     "copyright": "Copyright © 2020 Elder Tessem, Tech Brethren",
+    "productName": "ELM Emailer",
     "files": [
       "public/**/*"
     ],
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
     "dmg": {
       "contents": [
         {
@@ -34,7 +38,17 @@
       ]
     },
     "win": {
-      "target": "portable"
+      "target": [{
+        "target": "nsis",
+        "arch": [
+          "x64",
+          "ia32"
+        ]
+      }, {
+        "target": "portable"
+      }
+    ],
+      "legalTrademarks": "Copyright © 2020 Elder Tessem, Tech Brethren"
     }
   },
   "main": "./public/electron.js",
@@ -80,7 +94,7 @@
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
     "release": "yarn react-build & electron-builder --publish=always",
-    "build": "yarn react-build & yarn electron-build",
+    "build": "yarn react-build",
     "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\"",
     "dev": "yarn start"
   },
